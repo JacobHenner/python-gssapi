@@ -149,3 +149,10 @@ try:
     from gssapi.raw.ext_set_cred_opt import *  # noqa
 except ImportError:
     pass
+
+# optional localname support
+try:
+    from gssapi.raw.ext_localname import *  # noqa
+    from gssapi.raw.ext_localname_attr import *  # noqa
+except ImportError:
+    pass

@@ -376,6 +376,9 @@ setup(
         extension_file('password_add', 'gss_add_cred_with_password'),
 
         extension_file('krb5', 'gss_krb5_ccache_name'),
+
+        extension_file('localname', 'gss_localname'),
+        extension_file('localname_attr', 'GSS_C_ATTR_LOCAL_LOGIN_USER'),
     ]),
     options=setup_options,
     keywords=['gssapi', 'security'],
