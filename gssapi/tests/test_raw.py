@@ -1376,7 +1376,7 @@ class TestBaseUtilities(_GSSAPIKerberosTestCase):
         self.assertRaises(gb.GSSError, gb.authorize_localname,
                           canon_name, fake_local_name)
 
-    @ktu.gssapi_extension_test('localname', 'Local Name')
+    @ktu.gssapi_extension_test('pname_to_uid', 'pname_to_uid')
     def test_pname_to_uid(self):
         base_name = gb.import_name(self.USER_PRINC,
                                    gb.NameType.kerberos_principal)

@@ -379,6 +379,7 @@ setup(
 
         extension_file('localname', 'gss_localname'),
         extension_file('localname_attr', 'GSS_C_ATTR_LOCAL_LOGIN_USER'),
+        extension_file('pname_to_uid', 'gss_pname_to_uid'),
     ]),
     options=setup_options,
     keywords=['gssapi', 'security'],

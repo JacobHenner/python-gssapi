@@ -7,8 +7,6 @@ from gssapi.raw.oids cimport OID
 from gssapi.raw.misc import GSSError
 from gssapi import _utils
 
-from posix.types cimport uid_t
-
 cdef extern from "python_gssapi_ext.h":
     OM_uint32 gss_localname(OM_uint32 *minor,
                             const gss_name_t name,
@@ -21,11 +19,6 @@ cdef extern from "python_gssapi_ext.h":
     OM_uint32 gss_authorize_localname(OM_uint32 *minor,
                                       const gss_name_t name,
                                       const gss_name_t user) nogil
-
-    OM_uint32 gss_pname_to_uid(OM_uint32 *minor,
-                               const gss_name_t name,
-                               const gss_OID mech_type,
-                               uid_t *uid_out) nogil
 
 
 def localname(Name name not None, OID mech=None):
@@ -116,41 +109,5 @@ def authorize_localname(Name name not None, Name user not None):
 
     if maj_stat == GSS_S_COMPLETE:
         return True
-    else:
-        raise GSSError(maj_stat, min_stat)
-
-
-def pname_to_uid(Name name not None, OID mech=None):
-    """Get the local UID for a GSSAPI name.
-
-    This method determines the local UID associated with a GSSAPI
-    name, optionally for a given mechanism.
-
-    Note:
-        This function is not available on Windows.
-
-    Args:
-        name (Name): the GSSAPI name to map to a local UID
-        mech (~gssapi.OID): the mechanism to use for the mapping
-            (or None for the default)
-
-    Returns:
-        int: the local UID
-
-    Raises:
-        ~gssapi.exceptions.GSSError
-    """
-    cdef gss_OID m = GSS_C_NO_OID
-    if mech is not None:
-        m = &mech.raw_oid
-
-    cdef uid_t uid_out
-    cdef OM_uint32 maj_stat, min_stat
-
-    with nogil:
-        maj_stat = gss_pname_to_uid(&min_stat, name.raw_name, m, &uid_out)
-
-    if maj_stat == GSS_S_COMPLETE:
-        return uid_out
     else:
         raise GSSError(maj_stat, min_stat)

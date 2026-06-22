@@ -156,3 +156,9 @@ try:
     from gssapi.raw.ext_localname_attr import *  # noqa
 except ImportError:
     pass
+
+# optional pname_to_uid support (not available on Windows)
+try:
+    from gssapi.raw.ext_pname_to_uid import *  # noqa
+except ImportError:
+    pass
